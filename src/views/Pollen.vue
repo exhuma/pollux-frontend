@@ -1,10 +1,10 @@
 <template>
-  <v-container> TODO </v-container>
+  <v-container> TODO Pollen </v-container>
 </template>
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "Pollen",
   data: () => ({}),
 };
 </script>
