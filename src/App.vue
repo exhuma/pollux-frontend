@@ -1,5 +1,38 @@
 <template>
   <v-app>
+    <!--
+          <q-dialog v-model="loginDialog" persistent>
+        <q-card style="min-width: 350px">
+          <q-card-section class="row items-center q-pb-none">
+            <div class="text-h6">Login</div>
+          </q-card-section>
+          <q-card-section class="q-pt-none">
+            <q-input label="Username" v-model="username" autofocus />
+          </q-card-section>
+          <q-card-section class="q-pt-none">
+            <q-input
+              label="Password"
+              v-model="password"
+              :type="isPwd ? 'password' : 'text'"
+              @keyup.enter="acceptLogin">
+              <template v-slot:append>
+                <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+                  />
+              </template>
+            </q-input>
+          </q-card-section>
+
+          <q-card-actions align="right" class="text-primary">
+            <q-btn flat label="Cancel" @click="cancelLogin" />
+            <q-btn flat label="Login" @click="acceptLogin" />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+    -->
+
     <v-navigation-drawer app v-model="drawer">
       <v-list dense nav>
         <v-list-item to="/pollen">
@@ -42,19 +75,18 @@
 
     <v-app-bar app color="primary" dark>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Pollen/Spores Luxembourg</v-toolbar-title>
+      <v-toolbar-title>Title</v-toolbar-title>
       <v-spacer></v-spacer>
-      <div class="d-flex align-center">
         <v-combobox
           v-model="lang"
           :items="langOptions"
           label="Language"
           solo
           dense
+          class="mt-5"
         ></v-combobox>
         <v-btn v-if="token === ''" text @click="startLogin"> Login </v-btn>
         <v-btn v-if="token !== ''" text @click="logout"> Logout </v-btn>
-      </div>
     </v-app-bar>
 
     <v-main>
@@ -107,7 +139,9 @@ export default {
       { value: "lb", text: "Lëtzebuergesch" },
     ],
     loginDialog: false,
+    username: "",
     password: "",
+    isPwd: true
   }),
   methods: {
     startLogin() {
