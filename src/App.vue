@@ -180,6 +180,9 @@ export default {
   },
   created() {
     this.token = localStorage.getItem("token") || "";
+    if (!process.env.VUE_APP_POLLUX_API) {
+      throw new Error("Environment variable VUE_APP_POLLUX_API needs to be set!");
+    }
     this.proxy = new Proxy(process.env.VUE_APP_POLLUX_API, this.token);
     getLanguage(this.proxy).then((value) => {
       this.lang = value;
