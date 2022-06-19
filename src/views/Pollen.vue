@@ -3,7 +3,8 @@
     <v-autocomplete
       v-model="genus"
       :items="genera"
-      :item-text="(item) => $t(item.label)"
+      item-text="translated"
+      item-value="name"
       label="Genus"
       @filter="filterGenera"
     />
@@ -41,7 +42,6 @@ export default {
     return {
       rawData: [],
       genus: "Gramineae",
-      allValues: [],
       genera: [],
       timelineData: [],
       timelineLayout: {
@@ -58,6 +58,13 @@ export default {
     };
   },
   methods: {
+    translateGenera() {
+      let tmp = this.genera.map((item) => {
+        return { name: item.name, translated: this.$i18n.t(item.name) };
+      });
+      tmp.sort((a, b) => a.translated.localeCompare(b.translated));
+      this.genera = tmp;
+    },
     login: function () {
       this.proxy
         .login("jdoe", "jdoe@example.com") // TODO
@@ -116,6 +123,7 @@ export default {
     locale: function (newValue) {
       this.heatmapLayout.title = this.$t(this.genus);
       this.timelineLayout.title = this.$t(this.genus);
+      this.translateGenera();
       Plotly.setPlotConfig({ locale: newValue });
       Plotly.react("Timeline", [this.timelineData], this.timelineLayout, {
         locale: newValue,
@@ -155,7 +163,10 @@ export default {
   created() {
     this.updateGenus(this.genus);
     this.proxy.fetchGenera().then((data) => {
-      this.allValues = data;
+      this.genera = data.map((latinName) => {
+        return { name: latinName, translated: latinName };
+      });
+      this.translateGenera();
     });
   },
   components: {
