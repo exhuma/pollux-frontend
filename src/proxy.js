@@ -3,7 +3,6 @@ export class Proxy {
     this.url = url;
     this.token = token;
     this.upload_url = url + "/upload";
-    console.log(url);
   }
 
   fetchGenera() {
