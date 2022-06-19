@@ -1,5 +1,5 @@
 <template>
-  <v-main>
+  <v-container>
     <v-autocomplete
       v-model="genus"
       :items="genera"
@@ -14,7 +14,7 @@
     ></DataTable>
     <div id="Timeline" ref="timelineRef"></div>
     <div id="Heatmap"></div>
-  </v-main>
+  </v-container>
 </template>
 
 <script>
@@ -45,12 +45,14 @@ export default {
       genera: [],
       timelineData: [],
       timelineLayout: {
+        autosize: true,
         barmode: "stack",
         yaxis: { fixedrange: true },
         title: "",
       },
       heatmapData: [],
       heatmapLayout: {
+        autosize: true,
         title: "",
       },
     };
