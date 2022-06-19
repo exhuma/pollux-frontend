@@ -93,7 +93,7 @@
       <router-view
         @tokenChanged="onTokenChanged"
         :proxy="proxy"
-        :locale="lang"
+        :locale="lang.value || 'en'"
       />
     </v-main>
   </v-app>
