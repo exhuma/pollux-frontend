@@ -7,13 +7,11 @@
       label="Genus"
       @filter="filterGenera"
       />
-      <!--
     <DataTable
       :genera="[genus]"
       :data="rawData"
       :hide_bottom="true"
       ></DataTable>
-      -->
     <div id="Timeline" ref="timelineRef"></div>
     <div id="Heatmap"></div>
     </v-content>

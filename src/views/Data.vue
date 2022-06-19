@@ -1,9 +1,13 @@
 <template>
-  <q-page padding>
+  <div>
+    TODO Data View
     <DataTable
       :genera="selectedColumns"
       :data="data"
       ></DataTable>
+    </div>
+<!--
+  <q-page padding>
     <h5>Select files to upload</h5>
     <q-uploader
       :url="proxy.upload_url"
@@ -14,6 +18,7 @@
       @failed="onFailed"
       />
   </q-page>
+  -->
 </template>
 
 <script>

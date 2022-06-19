@@ -1,4 +1,6 @@
 <template>
+  <div>DataTable</div>
+  <!--
   <q-table
     :data="rows"
     :columns="columns"
@@ -9,6 +11,7 @@
       <q-td :props="props" :class="(props.value === 0 ? 'greyed' : '')">{{ props.value }}</q-td>
     </template>
   </q-table>
+  -->
 </template>
 
 <script>
