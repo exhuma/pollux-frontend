@@ -70,6 +70,21 @@
             >
           </v-list-item-content>
         </v-list-item>
+        <v-divider></v-divider>
+        <v-subheader>{{ $t("select-language") }}</v-subheader>
+        <v-list-item>
+          <v-list-item-content>
+            <v-combobox
+              v-model="lang"
+              :items="langOptions"
+              item-text="displayName"
+              item-value="key"
+              label="Language"
+              solo
+              dense
+            ></v-combobox>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -77,16 +92,6 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Title</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-combobox
-        v-model="lang"
-        :items="langOptions"
-        item-text="displayName"
-        item-value="key"
-        label="Language"
-        solo
-        dense
-        class="mt-5"
-      ></v-combobox>
       <v-btn v-if="token === ''" text @click="startLogin"> Login </v-btn>
       <v-btn v-if="token !== ''" text @click="logout"> Logout </v-btn>
     </v-app-bar>
