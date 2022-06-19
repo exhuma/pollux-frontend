@@ -16,61 +16,61 @@
 
 <script>
 export default {
-  name: 'DataTable',
+  name: "DataTable",
   props: {
     hide_bottom: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     genera: {
       type: Array,
-      required: true
+      required: true,
     },
     data: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     columns: function () {
       if (this.data && this.data.length === 0) {
-        return []
+        return [];
       }
-      let firstRow = this.data[0]
-      let columns = [{
-        name: 'date',
-        label: 'Date',
-        field: 'date',
-        sortable: true,
-        style: 'width: 100px'
-      }]
-      console.log(this.genera)
+      let firstRow = this.data[0];
+      let columns = [
+        {
+          name: "date",
+          label: "Date",
+          field: "date",
+          sortable: true,
+          style: "width: 100px",
+        },
+      ];
       for (const entry of Object.entries(firstRow)) {
         if (
-          entry[0].toLowerCase() === 'date' ||
+          entry[0].toLowerCase() === "date" ||
           (this.genera.length > 0 && !this.genera.includes(entry[0]))
         ) {
-          continue
+          continue;
         }
         columns.push({
           name: entry[0].toLowerCase(),
           label: entry[0],
           field: entry[0],
-          align: 'right'
-        })
+          align: "right",
+        });
       }
-      return columns
+      return columns;
     },
     rows: function () {
       if (this.data && this.data.length === 0) {
-        return []
+        return [];
       }
-      return this.data
-    }
-
-  }
-}
+      return this.data;
+    },
+  },
+};
 </script>
 
 <style>

@@ -77,16 +77,16 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Title</v-toolbar-title>
       <v-spacer></v-spacer>
-        <v-combobox
-          v-model="lang"
-          :items="langOptions"
-          label="Language"
-          solo
-          dense
-          class="mt-5"
-        ></v-combobox>
-        <v-btn v-if="token === ''" text @click="startLogin"> Login </v-btn>
-        <v-btn v-if="token !== ''" text @click="logout"> Logout </v-btn>
+      <v-combobox
+        v-model="lang"
+        :items="langOptions"
+        label="Language"
+        solo
+        dense
+        class="mt-5"
+      ></v-combobox>
+      <v-btn v-if="token === ''" text @click="startLogin"> Login </v-btn>
+      <v-btn v-if="token !== ''" text @click="logout"> Logout </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -141,7 +141,7 @@ export default {
     loginDialog: false,
     username: "",
     password: "",
-    isPwd: true
+    isPwd: true,
   }),
   methods: {
     startLogin() {
@@ -181,7 +181,9 @@ export default {
   created() {
     this.token = localStorage.getItem("token") || "";
     if (!process.env.VUE_APP_POLLUX_API) {
-      throw new Error("Environment variable VUE_APP_POLLUX_API needs to be set!");
+      throw new Error(
+        "Environment variable VUE_APP_POLLUX_API needs to be set!"
+      );
     }
     this.proxy = new Proxy(process.env.VUE_APP_POLLUX_API, this.token);
     getLanguage(this.proxy).then((value) => {

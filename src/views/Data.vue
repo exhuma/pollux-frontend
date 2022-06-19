@@ -1,12 +1,9 @@
 <template>
   <div>
     TODO Data View
-    <DataTable
-      :genera="selectedColumns"
-      :data="data"
-      ></DataTable>
-    </div>
-<!--
+    <DataTable :genera="selectedColumns" :data="data"></DataTable>
+  </div>
+  <!--
   <q-page padding>
     <h5>Select files to upload</h5>
     <q-uploader
@@ -22,53 +19,51 @@
 </template>
 
 <script>
-import DataTable from '@/components/DataTable.vue'
+import DataTable from "@/components/DataTable.vue";
 export default {
   props: {
     proxy: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
-  created () {
-    this.proxy.getRecentRaw()
-      .then(responseData => {
-        this.data = responseData
-      })
+  created() {
+    this.proxy.getRecentRaw().then((responseData) => {
+      this.data = responseData;
+    });
   },
-  data () {
+  data() {
     return {
       data: [],
-      selectedColumns: []
-    }
+      selectedColumns: [],
+    };
   },
   methods: {
-    makeHeaders (files) {
+    makeHeaders(files) {
       return {
-        headers: [{ name: 'Authorization', value: `JWT ${this.proxy.token}` }]
-      }
+        headers: [{ name: "Authorization", value: `JWT ${this.proxy.token}` }],
+      };
     },
-    checkFileSize (files) {
-      return files.filter(file => file.size < 16 * 16 * 1024)
+    checkFileSize(files) {
+      return files.filter((file) => file.size < 16 * 16 * 1024);
     },
-    onFailed (info) {
+    onFailed(info) {
       this.$q.notify({
-        type: 'negative',
-        message: 'Unable to upload. Are you logged in?'
-      })
+        type: "negative",
+        message: "Unable to upload. Are you logged in?",
+      });
     },
-    onRejected (rejectedEntries) {
+    onRejected(rejectedEntries) {
       this.$q.notify({
-        type: 'negative',
-        message: `${rejectedEntries.length} file(s) were too large`
-      })
-    }
+        type: "negative",
+        message: `${rejectedEntries.length} file(s) were too large`,
+      });
+    },
   },
   components: {
-    DataTable
-  }
-}
+    DataTable,
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>
