@@ -78,7 +78,15 @@ export class Proxy {
 
   getSupportedLanguages() {
     return new Promise((resolve) => {
-      resolve(["en", "de", "lb", "fr"]);
+      // TODO: placeholder. The languages are provided by the data from
+      // pollen.lu and only the back-end knows about this. We need to fetch
+      // these from the BE
+      resolve([
+        { key: "en", displayName: "English" },
+        { key: "de", displayName: "Deutsch" },
+        { key: "lb", displayName: "Lëtzebuergesch" },
+        { key: "fr", displayName: "Français" },
+      ]);
     });
   }
 

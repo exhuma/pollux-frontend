@@ -80,6 +80,8 @@
       <v-combobox
         v-model="lang"
         :items="langOptions"
+        item-text="displayName"
+        item-value="key"
         label="Language"
         solo
         dense
@@ -93,7 +95,7 @@
       <router-view
         @tokenChanged="onTokenChanged"
         :proxy="proxy"
-        :locale="lang.value || 'en'"
+        :locale="lang.key"
       />
     </v-main>
   </v-app>
@@ -108,10 +110,18 @@ function getLanguage(proxy) {
     let bestMatch = "";
     browserSetting.forEach((item) => {
       let langCode = item.split("-")[0];
-      if (supportedLanguages.indexOf(langCode) > -1 && bestMatch === "") {
-        bestMatch = langCode;
+      if (bestMatch !== "") {
+        return;
       }
+      bestMatch =
+        supportedLanguages.find((item) => item.key === langCode) ?? "";
     });
+    if (bestMatch === "") {
+      console.debug(
+        `No language code from the browser-list (${browserSetting}) supported. Falling back to ${supportedLanguages[0].key}`
+      );
+      bestMatch = supportedLanguages[0];
+    }
     return bestMatch;
   });
 }
@@ -123,7 +133,7 @@ export default {
 
   watch: {
     lang(lang) {
-      this.$i18n.locale = lang.value;
+      this.$i18n.locale = lang.key;
     },
   },
 
@@ -131,12 +141,12 @@ export default {
     drawer: null,
     proxy: null,
     token: "",
-    lang: { value: "en", text: "English" },
+    lang: { key: "en", displayName: "English" },
     langOptions: [
-      { value: "en", text: "English" },
-      { value: "de", text: "Deutsch" },
-      { value: "fr", text: "Français" },
-      { value: "lb", text: "Lëtzebuergesch" },
+      { key: "en", displayName: "English" },
+      { key: "de", displayName: "Deutsch" },
+      { key: "fr", displayName: "Français" },
+      { key: "lb", displayName: "Lëtzebuergesch" },
     ],
     loginDialog: false,
     username: "",
