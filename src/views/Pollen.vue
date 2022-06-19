@@ -21,7 +21,7 @@
 
 import {DateTime, Interval} from "luxon";
 import Plotly from 'plotly.js/dist/plotly'
-import DataTable from 'src/components/DataTable.vue'
+import DataTable from '@/components/DataTable.vue'
 
 function parsePlotlyDate(dateString) {
   let output = DateTime.fromFormat(dateString, "yyyy-MM-dd HH:mm:ss.u");
