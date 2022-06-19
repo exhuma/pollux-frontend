@@ -20,9 +20,25 @@
 </template>
 
 <script>
+
+import {DateTime, Interval} from "luxon";
 import Plotly from 'plotly.js/dist/plotly'
-import moment from 'moment'
 import DataTable from 'src/components/DataTable.vue'
+
+function parsePlotlyDate(dateString) {
+  let output = DateTime.fromFormat(dateString, "yyyy-MM-dd HH:mm:ss.u");
+  if (output.invalid) {
+    output = DateTime.fromFormat(dateString, "yyyy-MM-dd HH:mm");
+  }
+  if (output.invalid) {
+    output = DateTime.fromFormat(dateString, "yyyy-MM-dd");
+  }
+  if (output.invalid) {
+    throw new Error(`Invalid date-time string: ${dateString}`);
+  }
+  return output;
+}
+
 export default {
   data () {
     return {
@@ -127,9 +143,10 @@ export default {
     Plotly.newPlot('Heatmap', this.heatmapData, this.heatmapLayout)
     let self = this
     this.$refs.timelineRef.on('plotly_relayout', function (evt) {
-      let from = moment(evt['xaxis.range[0]'])
-      let to = moment(evt['xaxis.range[1]'])
-      if (from - to === 0) {
+      let from = parsePlotlyDate(evt['xaxis.range[0]']);
+      let to = parsePlotlyDate(evt['xaxis.range[1]']);
+      let interval = Interval.fromDateTimes(from, to);
+      if (interval.length() === 0) {
         return
       }
       self.proxy.getBetween(self.genus, from, to)

@@ -39,8 +39,8 @@ export class Proxy {
   }
 
   getBetween(genus, from, to) {
-    let fromStr = from.format("YYYY-MM-DD");
-    let toStr = to.format("YYYY-MM-DD");
+    let fromStr = from.toFormat('yyyy-MM-dd');
+    let toStr = to.toFormat('yyyy-MM-dd');
     let url = `${this.url}/between/${fromStr}/${toStr}?genus=${genus}`;
     return fetch(url, {
       headers: {
